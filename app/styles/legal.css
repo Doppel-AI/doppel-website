@@ -1,0 +1,105 @@
+/* Privacy policy and terms. They load site.css for the tokens, the nav, the buttons and the footer,
+   and add a reading layout: the title on paper, "the short version" on a red field cut by the ≈ wave
+   (as the hero's stage is), then numbered sections beside a list of them that stays in view. */
+
+/* ---------- the title ---------- */
+.legal-top { padding: clamp(128px, 17vh, 176px) var(--margin) 0; }
+.legal-top h1 { max-width: 9em; }
+.legal-lede { margin-top: 30px; max-width: 30ch; font-family: var(--font-display); font-size: var(--t-m); line-height: 1.1; }
+.legal-meta { display: flex; flex-wrap: wrap; gap: 14px 56px; margin-top: 40px; font-size: var(--t-s); }
+.legal-meta dt { color: var(--mute); }
+.legal-meta dd { margin: 2px 0 0; font-weight: 500; }
+
+/* ---------- the short version: a dark panel on a red field, as in the hero ---------- */
+.short { margin-top: clamp(64px, 9vw, 120px); }
+.short-wave { display: block; width: 100%; height: clamp(44px, 7vw, 112px); fill: var(--red); }
+.short-field { background: var(--red); padding: 0 var(--margin) clamp(48px, 6vw, 88px); margin-top: -1px; }
+.short-panel { max-width: 1120px; margin: 0 auto; background: var(--night); color: var(--on-dark); padding: clamp(24px, 3.4vw, 48px); }
+.short-panel h2 { color: #fff; }
+.short-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px clamp(24px, 4vw, 64px); margin-top: 28px; }
+.short-label { color: var(--mute-night); font-size: var(--t-s); margin-bottom: 10px; }
+.short-list li { display: flex; gap: 12px; align-items: baseline; padding: 7px 0; }
+.short-list li::before {
+  content: ""; flex: none; width: 17px; height: 13px; transform: translateY(1px); background: var(--red);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -50 124 100'%3E%3Cpath d='M0 -20 C18 -36 32 -36 50 -20 S82 -4 100 -20 M0 20 C18 4 32 4 50 20 S82 36 100 20' fill='none' stroke='black' stroke-width='20' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -50 124 100'%3E%3Cpath d='M0 -20 C18 -36 32 -36 50 -20 S82 -4 100 -20 M0 20 C18 4 32 4 50 20 S82 36 100 20' fill='none' stroke='black' stroke-width='20' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+/* the second column is what leaves: its bullets are the light half of the pair */
+.short-cols > div + div .short-list li::before { background: var(--on-dark); }
+.short-note { margin-top: 32px; color: var(--on-dark); max-width: 68ch; }
+.short-note b { color: #fff; }
+
+/* ---------- the sections, beside their list ---------- */
+.legal-body { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap); padding: clamp(72px, 8vw, 120px) var(--margin) var(--section); align-items: start; }
+.toc { grid-column: 1 / 4; position: sticky; top: 28px; max-height: calc(100svh - 56px); overflow: auto; font-size: var(--t-s); }
+.toc summary { list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--mute); margin-bottom: 10px; pointer-events: none; }
+.toc summary::-webkit-details-marker { display: none; }
+.toc ol { counter-reset: toc; }
+.toc li { counter-increment: toc; }
+.toc a { display: flex; gap: 10px; padding: 5px 0; text-decoration: none; color: var(--mute); transition: color 160ms ease; }
+.toc a::before { content: counter(toc); min-width: 1.6em; font-variant-numeric: tabular-nums; }
+.toc a[aria-current="true"] { color: var(--ink); font-weight: 600; }
+.toc a[aria-current="true"]::before { color: var(--red); }
+@media (hover: hover) and (pointer: fine) { .toc a:hover { color: var(--ink); } }
+
+.legal-text { grid-column: 5 / 13; counter-reset: part; }
+.legal-text > section > :not(.table-wrap) { max-width: 70ch; }
+.legal-text > section { counter-increment: part; padding-top: 8px; }
+.legal-text > section + section { margin-top: 64px; }
+.legal-text h2 { display: flex; gap: 0.5em; font-family: var(--font-display); font-size: var(--t-m); line-height: 1.08; margin-bottom: 18px; }
+.legal-text h2::before { content: counter(part); color: var(--red); font-variant-numeric: tabular-nums; }
+.legal-text h3 { font-size: var(--t-body); font-weight: 700; margin: 28px 0 8px; }
+.legal-text p + p, .legal-text p + ul, .legal-text ul + p, .legal-text .table-wrap + p, .legal-text p + .table-wrap { margin-top: 14px; }
+.legal-text ul { display: flex; flex-direction: column; gap: 10px; }
+.legal-text ul li { position: relative; padding-left: 26px; }
+.legal-text ul li::before { content: ""; position: absolute; left: 2px; top: 0.72em; width: 12px; height: 3px; border-radius: 3px; background: var(--red); }
+.legal-text a { text-decoration-color: currentColor; }
+.legal-text code { background: var(--step); padding: 0.05em 0.3em; }
+.legal-text strong { font-weight: 650; }
+.legal-text :target, .legal-text section:target h2 { scroll-margin-top: 24px; }
+
+/* a placeholder still to be filled in before launch */
+.fill { background: var(--pink); color: #8f1b14; padding: 0.02em 0.3em; border-radius: 0.2em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+/* tables: rows as stacked blocks of the paper's step tone, no rules */
+.table-wrap { margin-top: 20px; }
+.legal-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; font-size: var(--t-s); }
+.legal-table th { text-align: left; font-weight: 500; color: var(--mute); padding: 0 14px 2px; vertical-align: bottom; }
+.legal-table td { background: var(--step); padding: 14px; vertical-align: top; }
+.legal-table td:first-child { width: 34%; }
+.legal-table td strong { font-weight: 650; }
+.legal-table td p + p { margin-top: 6px; }
+
+/* ---------- the question at the end: the red band ---------- */
+.legal-ask { background: var(--red); color: #fff; padding: clamp(72px, 9vw, 140px) var(--margin); }
+.legal-ask p { max-width: 15em; font-family: var(--font-display); font-size: var(--t-l); line-height: 0.98; }
+.legal-ask a { text-decoration: underline; text-decoration-thickness: 0.05em; text-underline-offset: 0.14em; }
+@media (hover: hover) and (pointer: fine) { .legal-ask a:hover { text-decoration-color: var(--night); } }
+.legal-ask a:focus-visible { outline-color: #fff; }
+
+/* ---------- smaller screens ---------- */
+@media (max-width: 1100px) {
+  .toc { grid-column: 1 / 13; position: static; max-height: none; background: var(--step); padding: 16px 20px; }
+  .toc summary { pointer-events: auto; cursor: pointer; margin: 0; color: var(--ink); font-weight: 600; }
+  .toc[open] summary { margin-bottom: 8px; }
+  .toc summary::after { content: "+"; font-size: 1.5em; line-height: 1; font-weight: 400; }
+  .toc[open] summary::after { content: "\2212"; }
+  .toc ol { columns: 2; column-gap: var(--gap); }
+  .toc li { break-inside: avoid; }
+  .legal-text { grid-column: 1 / 13; margin-top: 40px; }
+}
+@media (max-width: 760px) {
+  .legal-top { padding-top: 112px; }
+  .short-cols { grid-template-columns: 1fr; }
+  .short-field { padding-left: 12px; padding-right: 12px; }
+  .toc ol { columns: 1; }
+  .legal-text > section + section { margin-top: 52px; }
+  /* each table row becomes a block that names its columns */
+  .legal-table, .legal-table tbody, .legal-table tr, .legal-table td { display: block; }
+  .legal-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .legal-table { border-spacing: 0; }
+  .legal-table tr { background: var(--step); padding: 6px 0; }
+  .legal-table tr + tr { margin-top: 6px; }
+  .legal-table td { padding: 6px 16px; background: none; }
+  .legal-table td[data-label]::before { content: attr(data-label); display: block; color: var(--mute); font-weight: 400; }
+}
