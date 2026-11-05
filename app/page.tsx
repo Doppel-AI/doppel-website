@@ -704,8 +704,8 @@ export default function Home() {
                   <span className="row-val">signature checked</span>
                 </li>
                 <li>
-                  <span className="row-name">Homebrew, winget, apt, rpm</span>
-                  <span className="row-val">packages</span>
+                  <span className="row-name">macOS, Windows, Linux</span>
+                  <span className="row-val">one program</span>
                 </li>
                 <li>
                   <span className="row-name">Jamf, Intune, Kandji</span>
