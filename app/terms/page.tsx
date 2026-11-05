@@ -26,7 +26,7 @@ export default function Terms() {
           <dl className="legal-meta">
             <div>
               <dt>Last updated</dt>
-              <dd>3 November 2026</dd>
+              <dd>5 November 2026</dd>
             </div>
             <div>
               <dt>Applies to</dt>
@@ -202,11 +202,18 @@ export default function Terms() {
               <p>
                 While these terms apply, we give you a non-exclusive, non-transferable right to install and use the
                 software for your organisation’s own work. The licence covers the number of developers and the period in
-                your licence file. Without a licence file, you may use the software to evaluate it for up to 60 days.
+                your licence file. Without a licence file, you may use the software to evaluate it for 14 days, or for 30
+                days when it runs on one developer’s machine alone.
+              </p>
+              <p>
+                When your licence ends, the software keeps working for a grace period of 15 days, or the number of days in
+                your licence file. After that it stops until you install a renewed licence: it refuses requests instead of
+                sending them, and new machines can’t join. An evaluation stops the same way when it ends.
               </p>
               <p>
                 A developer counts if they used Doppel in the last 30 days. If more developers use it than your licence
-                covers, tell us and we’ll agree a larger licence. The software keeps working in the meantime.
+                covers, the machines already set up keep working, new machines can’t join, and we’ll agree a larger
+                licence.
               </p>
               <p>You may not:</p>
               <ul>

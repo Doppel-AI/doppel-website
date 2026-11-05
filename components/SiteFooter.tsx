@@ -63,11 +63,6 @@ export default function SiteFooter({ home = false }: { home?: boolean }) {
                   Claude Code setups
                 </a>
               </li>
-              <li>
-                <a className="link" href={to("#faq")}>
-                  Try it on one laptop
-                </a>
-              </li>
             </ul>
           </div>
           <div>

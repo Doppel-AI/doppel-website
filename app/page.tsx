@@ -670,10 +670,6 @@ export default function Home() {
                   <span className="row-val">Helm chart</span>
                 </li>
                 <li>
-                  <span className="row-name">One laptop</span>
-                  <span className="row-val">doppel up --local</span>
-                </li>
-                <li>
                   <span className="row-name">PostgreSQL and Valkey</span>
                   <span className="row-val">several replicas</span>
                 </li>
@@ -891,11 +887,8 @@ export default function Home() {
               <summary>How do we start?</summary>
               <div className="answer">
                 <p>
-                  {
-                    "With a pilot: one Doppel server in your network (Docker Compose with a guided installer, or the Helm chart), then one line on each developer’s machine. To try it alone first, "
-                  }
-                  <code>doppel up --local</code>
-                  {" runs everything on one laptop."}
+                  With a pilot: one Doppel server in your network (Docker Compose with a guided installer, or the Helm
+                  chart), then one line on each developer’s machine.
                 </p>
               </div>
             </details>
@@ -936,7 +929,7 @@ export default function Home() {
             <p className="pilot-trap" aria-hidden="true">
               <label>
                 {"Leave this empty "}
-                <input name="company_site" type="text" tabIndex={-1} autoComplete="off" />
+                <input name="pilot_trap" type="text" tabIndex={-1} autoComplete="off" />
               </label>
             </p>
             <p className="pilot-note" data-reveal="" style={{ "--d": "1" } as React.CSSProperties} aria-live="polite">

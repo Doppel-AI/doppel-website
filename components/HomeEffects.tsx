@@ -277,9 +277,6 @@ function pilotForm(listen: Listen) {
     error.hidden = true;
     const endpoint = form.dataset.endpoint;
     if (!endpoint) return openEmailApp(value);
-    // The hidden field only a bot fills in: thank it and send nothing.
-    if (trap?.value) return thank(value);
-
     sending = true;
     form.setAttribute("aria-busy", "true");
     note.textContent = "Sending your request…";
@@ -287,7 +284,8 @@ function pilotForm(listen: Listen) {
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: value, page: location.href.split("#")[0] }),
+        // The hidden field only a bot fills in goes too: the server decides, and its log says so.
+        body: JSON.stringify({ email: value, page: location.href.split("#")[0], pilot_trap: trap?.value ?? "" }),
       });
       const out: { ok?: boolean; error?: string } = await res.json().catch(() => ({}));
       if (!res.ok || !out.ok) throw new Error(out.error ?? `HTTP ${res.status}`);

@@ -1,4 +1,4 @@
-// The pilot form on the home page posts {"email", "page", "company_site"} here; this emails
+// The pilot form on the home page posts {"email", "page", "pilot_trap"} here; this emails
 // Doppel's inbox through Resend, with Reply-To set to the visitor, and answers {"ok": true}.
 // Settings (see .env.example): RESEND_API_KEY, PILOT_TO, PILOT_FROM.
 
@@ -23,10 +23,13 @@ export async function POST(request: Request) {
     return reply({ ok: false, error: "bad request" }, 400);
   }
   if (typeof data !== "object" || data === null) return reply({ ok: false, error: "bad request" }, 400);
-  const { email: rawEmail, page: rawPage, company_site: trap } = data as Record<string, unknown>;
+  const { email: rawEmail, page: rawPage, pilot_trap: trap } = data as Record<string, unknown>;
 
   // The hidden field only a bot fills in: answer as if sent, send nothing.
-  if (trap) return reply({ ok: true });
+  if (trap) {
+    console.log("pilot form: the hidden field was filled, so it's treated as a bot and nothing was sent");
+    return reply({ ok: true });
+  }
 
   const email = String(rawEmail ?? "").trim();
   if (email.length > 254 || !EMAIL.test(email)) return reply({ ok: false, error: "email" }, 400);
@@ -39,12 +42,18 @@ export async function POST(request: Request) {
 
   const now = Date.now();
   const address = email.toLowerCase();
-  if (now - (lastSent.get(address) ?? 0) < REPEAT_MS) return reply({ ok: true });
+  if (now - (lastSent.get(address) ?? 0) < REPEAT_MS) {
+    console.log("pilot form: the same address asked again within 10 minutes, so it wasn't sent twice");
+    return reply({ ok: true });
+  }
   if (now - hour.start > 60 * 60 * 1000) hour = { start: now, sent: 0 };
-  if (hour.sent >= PER_HOUR) return reply({ ok: false, error: "busy" }, 429);
+  if (hour.sent >= PER_HOUR) {
+    console.error(`pilot form: ${PER_HOUR} emails were sent this hour already, so this one wasn't`);
+    return reply({ ok: false, error: "busy" }, 429);
+  }
 
   const page = String(rawPage ?? "").slice(0, 200);
-  const { error } = await new Resend(key).emails.send({
+  const { data: sent, error } = await new Resend(key).emails.send({
     from: process.env.PILOT_FROM || "Doppel website <onboarding@resend.dev>",
     to: process.env.PILOT_TO || "doppelhq@gmail.com",
     replyTo: email,
@@ -63,6 +72,8 @@ export async function POST(request: Request) {
     console.error("pilot form: Resend didn't send the email:", error.message);
     return reply({ ok: false, error: "send" }, 502);
   }
+  // Resend's id finds the email under Emails in the Resend dashboard.
+  console.log(`pilot form: Resend accepted the email (id ${sent?.id})`);
 
   hour.sent += 1;
   lastSent.set(address, now);
